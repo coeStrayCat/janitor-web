@@ -1,0 +1,18 @@
+services:
+  web:
+    container_name: janitor-web
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - janitor
+
+networks:
+  janitor:
+    external: true
+    name: janitor
