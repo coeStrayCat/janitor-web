@@ -1,7 +1,3 @@
-// ==============================
-// AUTH USE CASES UNIT TESTS
-// ==============================
-
 import { AuthUseCases } from '@/lib/auth/use-cases';
 import { IAuthRepository } from '@/types/repository';
 import { User, AuthResponse } from '@/types/auth';
@@ -129,7 +125,6 @@ describe('AuthUseCases', () => {
 
   describe('logout', () => {
     it('should logout user successfully', async () => {
-      // Setup authenticated user
       mockRepository.saveToken('mock-token');
       mockRepository.setCurrentUser({ email: 'john@example.com' });
 
