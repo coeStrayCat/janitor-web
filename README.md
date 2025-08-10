@@ -1,36 +1,223 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Janitor Web - Clean Architecture Authentication System
 
-## Getting Started
+A Next.js application implementing Clean Architecture principles with React best practices for authentication system.
 
-First, run the development server:
+## 🏗️ Architecture Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This project follows **Clean Architecture** principles by Uncle Bob, organized with React best practices:
+
+### 🎯 Clean Architecture Layers
+
+1. **Domain Layer** (`/src/types/`)
+   - Business entities and interfaces
+   - No dependencies on external frameworks
+
+2. **Application Layer** (`/src/lib/auth/use-cases.ts`)
+   - Business use cases and rules
+   - Orchestrates data flow between layers
+
+3. **Infrastructure Layer** (`/src/lib/auth/repository.ts`)
+   - External API communication
+   - Data persistence (cookies, localStorage)
+
+4. **Presentation Layer** (`/src/components/`, `/src/store/`, `/src/hooks/`)
+   - React components and UI logic
+   - Redux state management
+   - Custom hooks
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+├── components/             # React Components
+│   └── auth/              # Authentication components
+├── hooks/                 # Custom React hooks
+├── lib/                   # Business logic (Clean Architecture)
+│   └── auth/              # Authentication domain
+│       ├── use-cases.ts   # Application layer
+│       ├── repository.ts  # Infrastructure layer
+│       └── service.ts     # Dependency injection
+├── providers/             # React providers
+├── store/                 # Redux store and slices
+├── styles/                # Global styles
+├── types/                 # TypeScript type definitions
+└── __tests__/             # Unit tests
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- ✅ **Clean Architecture** - Separation of concerns
+- ✅ **React Best Practices** - Proper component structure
+- ✅ **TypeScript** - Type safety throughout
+- ✅ **Redux Toolkit** - State management
+- ✅ **Custom Hooks** - Reusable authentication logic
+- ✅ **Unit Testing** - Jest & React Testing Library
+- ✅ **JWT Authentication** - Token-based auth
+- ✅ **Cookie Storage** - Secure token storage
+- ✅ **Docker Support** - Development environment
+- ✅ **API Proxy** - CORS handling
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔧 Clean Architecture Benefits
 
-## Learn More
+### 1. **Dependency Inversion**
+- Domain layer doesn't depend on infrastructure
+- Repository pattern for data access
+- Dependency injection in service layer
 
-To learn more about Next.js, take a look at the following resources:
+### 2. **Testability**
+- Each layer can be tested independently
+- Mock implementations for external dependencies
+- Unit tests for business logic
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. **Maintainability**
+- Clear separation of concerns
+- Easy to modify or replace layers
+- Single responsibility principle
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. **Scalability**
+- Add new features without affecting existing code
+- Consistent patterns across the application
+- Easy to extend authentication system
 
-## Deploy on Vercel
+## 🚀 Getting Started
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
+- Node.js 24+
+- Docker & Docker Compose
+- Spring Boot API running on port 8080
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd janitor-web
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start with Docker**
+   ```bash
+   docker-compose up --build
+   ```
+
+4. **Access the application**
+   - Frontend: http://localhost:3000
+   - API endpoints: http://localhost:8080/api/v1
+
+## 🧪 Testing
+
+### Run Tests
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+### Test Structure
+- **Unit Tests**: `/src/__tests__/`
+- **Component Tests**: `/src/__tests__/components/`
+- **Business Logic Tests**: `/src/__tests__/lib/`
+
+## 🎯 Authentication Flow
+
+### Sign Up/Sign In Process
+1. **User Input** → Components (`/src/components/auth/`)
+2. **Action Dispatch** → Redux (`/src/store/auth-slice.ts`)
+3. **Use Case Execution** → Business Logic (`/src/lib/auth/use-cases.ts`)
+4. **API Communication** → Repository (`/src/lib/auth/repository.ts`)
+5. **Token Storage** → Infrastructure Layer
+6. **State Update** → Redux Store
+7. **UI Update** → React Components
+
+### Clean Architecture Flow
+```
+Presentation → Application → Domain ← Infrastructure
+     ↓              ↓         ↓         ↓
+Components → Use Cases → Entities ← Repository
+```
+
+## 🔒 Security Features
+
+- **JWT Token Authentication**
+- **HTTP-only Cookies** (production-ready)
+- **CORS Protection** via API proxy
+- **Protected Routes** with authentication guards
+- **Secure Token Storage** with expiration
+
+## 🛠️ Development Scripts
+
+```bash
+# Development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm run start
+
+# Run linting
+npm run lint
+
+# Run tests
+npm test
+```
+
+## 🏆 Best Practices Implemented
+
+### React Best Practices
+- Functional components with hooks
+- Custom hooks for reusable logic
+- Proper TypeScript typing
+- Component composition over inheritance
+
+### Clean Architecture Principles
+- Dependency inversion
+- Single responsibility
+- Open/closed principle
+- Interface segregation
+
+### Testing Best Practices
+- Unit tests for business logic
+- Component testing with React Testing Library
+- Mock external dependencies
+- Test coverage reporting
+
+## 📚 Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **State Management**: Redux Toolkit
+- **Styling**: Tailwind CSS
+- **Testing**: Jest, React Testing Library
+- **Build Tool**: Turbopack
+- **Containerization**: Docker
+- **API Communication**: Axios
+
+## 🔄 Extending the System
+
+### Adding New Features
+1. **Define Types** in `/src/types/`
+2. **Create Use Cases** in `/src/lib/`
+3. **Implement Repository** for data access
+4. **Add Redux Slice** for state management
+5. **Create Components** for UI
+6. **Write Tests** for all layers
+
+### Adding New Authentication Methods
+1. Extend repository interface
+2. Implement new use cases
+3. Update Redux store
+4. Create new components
+5. Add corresponding tests
+
+This architecture ensures that the application remains maintainable, testable, and scalable while following both Clean Architecture principles and React best practices.
