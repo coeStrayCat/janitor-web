@@ -1,7 +1,3 @@
-// ==============================
-// TYPES (Domain Layer Entities)
-// ==============================
-
 export interface User {
   id?: string;
   firstName?: string;
@@ -27,7 +23,6 @@ export interface SignInRequest {
   password: string;
 }
 
-// Redux State Types
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
